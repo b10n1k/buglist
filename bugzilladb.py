@@ -43,7 +43,7 @@ def retrieve_bugs(db,table='bugs',*args):
     
     if len(args)==0:
         print('exe simple')
-        cursor.execute('SELECT id FROM '+table)
+        cursor.execute('SELECT * FROM '+table)
     else:
         print('exec with id')
         idnum = args[1]

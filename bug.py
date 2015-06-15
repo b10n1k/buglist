@@ -1,6 +1,7 @@
 from bugzilladb import *
 import os
 import sys
+import argparse
 
 class bug():
     
@@ -31,10 +32,10 @@ class bug():
     def listbugs(self):
         idlist = []
         self.dbobj = db_connect()
-        print('connected '+str(self.dbobj))
+        #print('connected '+str(self.dbobj))
         
         idlist = retrieve_bugs(db=self.dbobj)
-        print(idlist)
+        #print(idlist)
         if idlist:
             for bug in idlist:
                 print(bug)
@@ -52,34 +53,22 @@ class bug():
     
 if __name__ =="__main__":
     b = bug()
+    print('list \n')
+    b.listbugs()
     #menu()
-    if len(sys.argv)>1:
-        if sys.argv[1] in ['a','d','r','h']:
-            if sys.argv[1] == 'd' or sys.argv[1] == 'h':
-                b.options[sys.argv[1]]()
-            if sys.argv[1] == 'a':
-                if sys.argv[2]:
-                    idb = sys.argv[2]
-                    #idb = raw_input('id :')
-                    noteb = raw_input('add a note :' )
-                    b.options[sys.argv[1]]( id=idb, note=noteb)
-            if sys.argv[1] == 'r':
-                b.options[sys.argv[1]](sys.argv[2])
-        else:
-            print('no such an option (try \'h\')')
-    else:
-        b.options['h']()
-        print('you need parameters dude!!')
-        #argparse or click
-    #option = raw_input(':: ')
-    
-    #if option.strip()=='a':
-    #    idb = raw_input('id :')
-    #    noteb = raw_input('note :' )
-    #    b.options[option]( id=idb, note=noteb)
-    #if option.strip()=='r':
-    #    idb = raw_input('id :')
-    #    b.options[option](idb)
-    #if option.strip()=='d' or option.strip()=='h':
-    #    b.options[option]()
-    
+    parser = argparse.ArgumentParser(prog="bug", description="add/list/delete a bug id")
+    parser.add_argument('-a', nargs='+', type=int, help='Add one or more bug ids')
+    parser.add_argument('-r', nargs='+', type=int, help='Delete one or more bug ids ')
+    parser.add_argument('-d', nargs='?', help="list bugs ids")
+    args = parser.parse_args()
+
+    if args.d:
+        b.options['d']()
+    if args.a:
+        for arg in args.a:
+            noteb = raw_input('add a note for bug '+str(arg)+' :' )
+            projb = raw_input(str(arg)+' project:' )
+            b.options['a'](id=arg, note=noteb)
+    if args.r:
+        for arg in args.r:
+            b.options['r'](arg)    
