@@ -1,0 +1,6 @@
+#!/home/b10n1k/.virtualenvs/buglist/bin/python2
+from sys import path
+path.append('src/main/python')
+#bugs.py
+
+buglist.py

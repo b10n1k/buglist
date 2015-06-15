@@ -1,0 +1,12 @@
+__init__.py
+bug.py
+bugzilladb.py
+setup.py
+buglist.egg-info/PKG-INFO
+buglist.egg-info/SOURCES.txt
+buglist.egg-info/dependency_links.txt
+buglist.egg-info/entry_points.txt
+buglist.egg-info/top_level.txt
+buglist.egg-info/zip-safe
+scripts/bug
+scripts/bug~
